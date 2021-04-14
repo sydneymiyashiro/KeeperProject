@@ -55,11 +55,26 @@ app.post('/api/create', function(req, res) {
 app.delete('/api/delete/:id', function(req, res) {
   Note.deleteOne({_id: req.params.id}, function(err) {
     if (!err) {
-      console.log("movie deleted");
+      console.log("note deleted");
     } else {
       console.log(err);
     }
   });
+});
+
+
+app.put('/api/update/:id', function(req, res) {
+  Note.findByIdAndUpdate(
+    req.params.id,
+    {title: req.body.title, content: req.body.content},
+    function(err) {
+      if (!err) {
+        res.send("Successfully updated article");
+      } else {
+        res.send(err);
+      }
+    }
+  );
 });
 
 
